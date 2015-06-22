@@ -13,6 +13,16 @@ pre {
   background-color: #F7F7F7;
 }
 </style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64364593-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </head>
 <body>
 <h1>Streaming Message Protocol</h1>
@@ -27,7 +37,7 @@ multipart messages in binary codec.</p>
 <h2>Implementations</h2>
 
 <ul>
-<li><a href="https://github.com/smprotocol/smp-node">Node.JS (official)</a>.</li>
+<li><a href="https://github.com/smprotocol/smp-node">Node.js (official)</a>.</li>
 </ul>
 
 <h2>License</h2>
@@ -77,7 +87,7 @@ see &lt;http://www.gnu.org/licenses&gt;.
     Collective of FRAME, up-to 281.471 TB in size.
 
 - FRAME#
-    The sequential number of the FRAME, to a maximum of 4,294,967,295.
+    The sequential number of the FRAME, to a maximum of 4,294,967,295, in big endian.
     
 - MAX-MESSAGE-SIZE
     The maximum size of bytes which a whole MESSAGE will be formed, if greater will become 
@@ -91,10 +101,10 @@ see &lt;http://www.gnu.org/licenses&gt;.
     OCTET in the MESSAGE or FRAME, from 0 up-to 16 ARGUMENTS.
     
 - ID
-    "Message" identifier sequential number, from 0 to 65,535.
+    "Message" identifier sequential number, from 0 to 65,535, in big endian.
     
 - LENGTH
-    Size in bytes of a ARGUMENT.
+    Size in bytes of a ARGUMENT, in big endian.
     
 - PAYLOAD
     The data "message" in binary to send.
@@ -113,8 +123,6 @@ see &lt;http://www.gnu.org/licenses&gt;.
 
 
 <h3>Framing</h3>
-All integer bytes are big endian.
-
 Octets for a MESSAGE:
 +-----------------------------------------------------------------------------------------+
 | MESSAGE                                                                                 |
@@ -215,7 +223,7 @@ MESSAGE or FRAME. For example you may have a MESSAGE/FRAME which has binary PAYL
 photograph and JSON "text based" data about that photograph; you could have ARGUMENT[0] as the JSON 
 (serialized to binary) and ARGUMENT[1] as the photograph binary data. Having ARGUMENTS means you do 
 not have to serialize both text and binary data together using something like MsgPack, however you 
-can if you want.
+can if you want.<br/>
 </code></pre>
 <hr/>
 <p>Copyright &#169; 2015 Mark W. B. Ashcroft. GNU GPLv3, see <a href="LICENSES.txt">LICENSE</a>.</p>
